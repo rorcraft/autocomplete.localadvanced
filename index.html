@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="facebook">
+<head>
+	<title>type ahead!</title>
+	<link href="stylesheets/common.css?1218034919" media="screen" rel="stylesheet" type="text/css" />
+	<script src="javascripts/prototype.js?1217397659" type="text/javascript"></script>
+<script src="javascripts/effects.js?1217379416" type="text/javascript"></script>
+<script src="javascripts/dragdrop.js?1217379416" type="text/javascript"></script>
+<script src="javascripts/controls.js?1218066595" type="text/javascript"></script>
+
+<script src="javascripts/builder.js?1217379416" type="text/javascript"></script>
+<script src="javascripts/application.js?1218165577" type="text/javascript"></script>
+    
+</head>
+
+<body class="inbox chat_body">
+	    
+        <div class="composer">
+        <p>Try typing: rex</p>
+    		<form id="compose_message" action="/messages" method="post"  name="compose_message">
+                <dl class="composer_fields clearfix">
+                    <dt id="dt_to_field">
+                        <label for="to_field">To:</label>
+
+                    </dt>
+                    <dd id="dd_to_field" class="field">
+                        <div tabindex="-1" id="ids" class="clearfix tokenizer" onclick="$('autocomplete_input').focus()">
+                            <span class="tokenizer_stretcher">^_^</span><span class="tab_stop"><input type="text" id="hidden_input" tabindex="-1"></span>
+                    	    
+							
+                            <div id="autocomplete_display" class="tokenizer_input">
+                                            <input type="text" size="1" tabindex="" id="autocomplete_input"   />
+                            </div>                                                                          
+                        </div>
+                        <div id="autocomplete_populate" class="clearfix autocomplete typeahead_list" style="width: 358px; height: auto; overflow-y: hidden;display:none">
+
+                                <div class="typeahead_message">Type the name of a friend, friend list, or email address</div>                       
+                        </div>  
+                        <script type="text/javascript">
+						// preload images.
+                        (new Image()).src='inbox/images/token.gif';
+                        (new Image()).src='inbox/images/token_selected.gif';
+                        (new Image()).src='inbox/images/token_hover.gif';
+                        (new Image()).src='inbox/images/token_x.gif';
+
+                        var contacts = [
+                        {name:"phoenix zhuang",email:"phoenix@rorcraft.com"}, 
+                        {name:"jian xie",email:"jan.xie@rorcraft.com"}, 
+                        {name:"isaiah peng",email:"isaiah.peng@rorcraft.com"}, 
+                        {name:"chris chan",email:"chris.chan@rorcraft.com"}, 
+                        {name:"rex chung",email:"rex@rorcraft.com"},
+                        {name:"chung rex",email:"chung@rorcraft.com"},
+                        {name:"chan chris",email:"chan@rorcraft.com"},
+                        {name:"peng isaiah",email:"peng@rorcraft.com"},
+ 						{name:"albert chang",email:"albert@yahoo.com"}];
+
+
+                        var typeahead = new Autocompleter.LocalAdvanced('autocomplete_input', 'autocomplete_populate', contacts, {                                                  
+                            frequency: 0.1,
+                            updateElement: addContactToList,
+                            search_field: "name"
+                        });
+                        var hidden_input = new HiddenInput('hidden_input',typeahead);
+
+                        </script>                       
+                    </dd>
+                    <dt>
+                        <label for="subject_field" >Subject:</label>
+                    </dt>
+                    <dd class="field">
+                        <input id="subject_field" name="subject" class="inputtext"  value="" type="text">
+
+                    </dd>
+                    <dt>
+                        <label for="message_field">Message:</label>
+                    </dt>
+                    <dd class="field">
+                        <textarea style="height: 100px;" class="DOMControl_autogrow" id="message" name="message" >
+</textarea>
+                    </dd>
+                    <dd class="submits">
+
+                        <div class="submits_wrap">                            
+                            <input  name="send_button" value="Send" type="submit">
+							<input  value="Cancel" type="button">
+                        </div>
+                        <div class="sub_controls"></div>
+                    </dd>
+                </dl>
+           </form>
+        </div>
+
+
+
+
+</body>
+</html>
