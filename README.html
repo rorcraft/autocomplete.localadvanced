@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<body>
+<h2>The Facebook autocomplete address to: field.</h2> 
+<div class="entrybody"> 
+  <p>We&#8217;ve extended the <a href="http://github.com/madrobby/scriptaculous/wikis/autocompleter-local"> Autocomplete.Local</a> from <a href="http://script.aculo.us">Scriptaculous</a> to implement the autocomplete to: field mimicing the Facebook&#8217;s features. This was a little challenging at the start, but <a href="http://www.prototypejs.org">prototype.js</a> and scriptaculous have just made it so much easier.</p> 
+<p><img src="http://devblog.rorcraft.com/assets/2008/8/13/autocomplete.advancedlocal.jpg" /><br /> 
+<br /><br /> 
+<h2>Concepts</h2><br /> 
+<ul><br /> 
+<li>json &#8211; array of contacts with names and email address and any other fields you wish to search</li><br /> 
+<li>The input box changes size dynamically and reposition itself according to the keystrokes</li><br /> 
+<li>Each &#8216;token&#8217; created is an input field, submitting the id of the user or an email address</li></p> 
+</ul> 
+<h3>Straight to the source</h3> 
+<ul> 
+<li><a href="http://github.com/rorcraft/autocomplete.localadvanced/tree/master" target="_blank">Browse source</a></li> 
+<li><a href="http://www.rorcraft.com/autocomplete_advanced_local.zip">Full sourceAutocomplete_AdvancedLocal.zip</a></li> 
+<li><a href="http://www.rorcraft.com/autocomplete_advanced_local/">Live Demo</a></li> 
+</ul> 
+<h2>Syntax</h2> 
+<div style="overflow:auto"><table class="CodeRay"><tr> 
+  <td class="line_numbers" title="click to toggle" onclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1<tt> 
+</tt></pre></td> 
+  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }"><span class="kw">new</span> Autocompleter.LocalAdvanced(id_of_text_field, id_of_div_to_populate, json_array, options)<tt> 
+</tt></pre></td> 
+</tr></table> 
+</div> 
+ <p>The constructor takes four parameters. The first two are, as usual, the id of the monitored textbox, and id of the autocompletion menu. The third is an array of strings that you want to autocomplete from, and the fourth is the options block.</p> 
+	<h3>Extra local autocompletion options</h3> 
+<table> 
+<tr> 
+			<th><em>Option</em></th> 
+			<th><em>Default Value</em></th> 
+			<th><em>Description</em></th> 
+</tr> 
+<tr> 
+                        <td><code>search_field</code></td> 
+                        <td>&#8220;name&#8221;</td> 
+                        <td>Which attribute to search in the json array.</td> 
+</tr> 
+<tr> 
+			<td><code>choices</code></td> 
+			<td>10</td> 
+			<td>How many autocompletion choices to offer</td> 
+</tr> 
+<tr> 
+			<td><code>partialSearch</code></td> 
+			<td>off</td> 
+			<td>If false, the autocompleter will match entered text only at the beginning of strings in the autocomplete array. Defaults to true, which will match text at the beginning of any word in the strings in the autocomplete array. If you want to search anywhere in the string, additionally set the option fullSearch to true</td> 
+</tr> 
+<tr> 
+			<td><code>fullSearch</code></td> 
+			<td>false</td> 
+			<td>Search anywhere in autocomplete array strings.</td> 
+</tr> 
+<tr> 
+			<td><code>partialChars</code></td> 
+			<td>2</td> 
+			<td>How many characters to enter before triggering a partial match (unlike minChars, which defines how many characters are required to do any match at all).</td> 
+</tr> 
+<tr> 
+			<td><code>ignoreCase</code></td> 
+			<td>true</td> 
+			<td>Whether to ignore case when autocompleting</td> 
+</tr> 
+</table> 
+<h2>Example</h2> 
+<h3><span class="caps">HTML</span></h3> 
+<div style="overflow:auto"><table class="CodeRay"><tr> 
+  <td class="line_numbers" title="click to toggle" onclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1<tt> 
+</tt>2<tt> 
+</tt>3<tt> 
+</tt>4<tt> 
+</tt>5<tt> 
+</tt>6<tt> 
+</tt>7<tt> 
+</tt>8<tt> 
+</tt>9<tt> 
+</tt><strong>10</strong><tt> 
+</tt></pre></td> 
+  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }"> <span class="ta">&lt;div</span> <span class="an">tabindex</span>=<span class="s"><span class="dl">&quot;</span><span class="k">-1</span><span class="dl">&quot;</span></span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">ids</span><span class="dl">&quot;</span></span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">clearfix tokenizer</span><span class="dl">&quot;</span></span> <span class="an">onclick</span>=<span class="s"><span class="dl">&quot;</span><span class="k">$('autocomplete_input').focus()</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><tt> 
+</tt><span class="ta">&lt;span</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">tokenizer_stretcher</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>^_^<span class="ta">&lt;/span&gt;</span><span class="ta">&lt;span</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">tab_stop</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;input</span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text</span><span class="dl">&quot;</span></span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">hidden_input</span><span class="dl">&quot;</span></span> <span class="an">tabindex</span>=<span class="s"><span class="dl">&quot;</span><span class="k">-1</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><span class="ta">&lt;/span&gt;</span><tt> 
+</tt> <span class="ta">&lt;div</span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">autocomplete_display</span><span class="dl">&quot;</span></span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">tokenizer_input</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span> <tt> 
+</tt> <span class="ta">&lt;input</span> <span class="an">type</span>=<span class="s"><span class="dl">&quot;</span><span class="k">text</span><span class="dl">&quot;</span></span> <span class="an">size</span>=<span class="s"><span class="dl">&quot;</span><span class="k">1</span><span class="dl">&quot;</span></span> <span class="an">tabindex</span>=<span class="s"><span class="dl">&quot;</span><span class="dl">&quot;</span></span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">autocomplete_input</span><span class="dl">&quot;</span></span>   <span class="ta">/&gt;</span><tt> 
+</tt> <span class="ta">&lt;/div&gt;</span>                                                                          <tt> 
+</tt> <span class="ta">&lt;/div&gt;</span><tt> 
+</tt><tt> 
+</tt><span class="ta">&lt;div</span> <span class="an">id</span>=<span class="s"><span class="dl">&quot;</span><span class="k">autocomplete_populate</span><span class="dl">&quot;</span></span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">clearfix autocomplete typeahead_list</span><span class="dl">&quot;</span></span> <span class="an">style</span>=<span class="s"><span class="dl">&quot;</span><span class="k">width: 358px; height: auto; overflow-y: hidden;display:none</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span><tt> 
+</tt> <span class="ta">&lt;div</span> <span class="an">class</span>=<span class="s"><span class="dl">&quot;</span><span class="k">typeahead_message</span><span class="dl">&quot;</span></span><span class="ta">&gt;</span>Type the name of a friend, friend list, or email address<span class="ta">&lt;/div&gt;</span>                       <tt> 
+</tt> <span class="ta">&lt;/div&gt;</span>  <tt> 
+</tt></pre></td> 
+</tr></table> 
+</div> 
+<h3>Javascript</h3> 
+<div style="overflow:auto"><table class="CodeRay"><tr> 
+  <td class="line_numbers" title="click to toggle" onclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1<tt> 
+</tt>2<tt> 
+</tt>3<tt> 
+</tt>4<tt> 
+</tt>5<tt> 
+</tt>6<tt> 
+</tt>7<tt> 
+</tt>8<tt> 
+</tt>9<tt> 
+</tt><strong>10</strong><tt> 
+</tt>11<tt> 
+</tt>12<tt> 
+</tt>13<tt> 
+</tt>14<tt> 
+</tt>15<tt> 
+</tt>16<tt> 
+</tt>17<tt> 
+</tt>18<tt> 
+</tt>19<tt> 
+</tt><strong>20</strong><tt> 
+</tt>21<tt> 
+</tt>22<tt> 
+</tt></pre></td> 
+  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }">               (<span class="kw">new</span> Image()).src=<span class="s"><span class="dl">'</span><span class="k">/inbox/images/token.gif</span><span class="dl">'</span></span>;<tt> 
+</tt>                        (<span class="kw">new</span> Image()).src=<span class="s"><span class="dl">'</span><span class="k">/inbox/images/token_selected.gif</span><span class="dl">'</span></span>;<tt> 
+</tt>                        (<span class="kw">new</span> Image()).src=<span class="s"><span class="dl">'</span><span class="k">/inbox/images/token_hover.gif</span><span class="dl">'</span></span>;<tt> 
+</tt>                        (<span class="kw">new</span> Image()).src=<span class="s"><span class="dl">'</span><span class="k">/inbox/images/token_x.gif</span><span class="dl">'</span></span>;<tt> 
+</tt><tt> 
+</tt>                        <span class="kw">var</span> contacts = [<tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">phoenix zhuang</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">phoenix@rorcraft.com</span><span class="dl">&quot;</span></span>}, <tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">jian xie</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">jan.xie@rorcraft.com</span><span class="dl">&quot;</span></span>}, <tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">isaiah peng</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">isaiah.peng@rorcraft.com</span><span class="dl">&quot;</span></span>}, <tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chris chan</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chris.chan@rorcraft.com</span><span class="dl">&quot;</span></span>}, <tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">rex chung</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">rex@rorcraft.com</span><span class="dl">&quot;</span></span>},<tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chung rex</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chung@rorcraft.com</span><span class="dl">&quot;</span></span>},<tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chan chris</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">chan@rorcraft.com</span><span class="dl">&quot;</span></span>},<tt> 
+</tt>                        {<span class="ke">name</span>:<span class="s"><span class="dl">&quot;</span><span class="k">peng isaiah</span><span class="dl">&quot;</span></span>,<span class="ke">email</span>:<span class="s"><span class="dl">&quot;</span><span class="k">peng@rorcraft.com</span><span class="dl">&quot;</span></span>} ];<tt> 
+</tt><tt> 
+</tt><tt> 
+</tt>                        <span class="kw">var</span> typeahead = <span class="kw">new</span> Autocompleter.LocalAdvanced(<span class="s"><span class="dl">'</span><span class="k">autocomplete_input</span><span class="dl">'</span></span>, <span class="s"><span class="dl">'</span><span class="k">autocomplete_populate</span><span class="dl">'</span></span>, contacts, {                                                  <tt> 
+</tt>                            <span class="ke">frequency</span>: <span class="fl">0.1</span>,<tt> 
+</tt>                            <span class="ke">updateElement</span>: addContactToList,<tt> 
+</tt>                            <span class="ke">search_field</span>: <span class="s"><span class="dl">&quot;</span><span class="k">name</span><span class="dl">&quot;</span></span><tt> 
+</tt>                        });<tt> 
+</tt>                        <span class="kw">var</span> hidden_input = <span class="kw">new</span> HiddenInput(<span class="s"><span class="dl">'</span><span class="k">hidden_input</span><span class="dl">'</span></span>,typeahead);<tt> 
+</tt></pre></td> 
+</tr></table> 
+</div> 
+<h3><span class="caps">CSS</span></h3> 
+<div style="overflow:auto"><table class="CodeRay"><tr> 
+  <td class="line_numbers" title="click to toggle" onclick="with (this.firstChild.style) { display = (display == '') ? 'none' : '' }"><pre>1<tt> 
+</tt>2<tt> 
+</tt>3<tt> 
+</tt>4<tt> 
+</tt>5<tt> 
+</tt>6<tt> 
+</tt>7<tt> 
+</tt>8<tt> 
+</tt>9<tt> 
+</tt><strong>10</strong><tt> 
+</tt>11<tt> 
+</tt>12<tt> 
+</tt>13<tt> 
+</tt>14<tt> 
+</tt>15<tt> 
+</tt>16<tt> 
+</tt>17<tt> 
+</tt>18<tt> 
+</tt>19<tt> 
+</tt><strong>20</strong><tt> 
+</tt>21<tt> 
+</tt>22<tt> 
+</tt>23<tt> 
+</tt>24<tt> 
+</tt>25<tt> 
+</tt>26<tt> 
+</tt>27<tt> 
+</tt>28<tt> 
+</tt>29<tt> 
+</tt><strong>30</strong><tt> 
+</tt>31<tt> 
+</tt>32<tt> 
+</tt>33<tt> 
+</tt>34<tt> 
+</tt>35<tt> 
+</tt>36<tt> 
+</tt>37<tt> 
+</tt>38<tt> 
+</tt>39<tt> 
+</tt><strong>40</strong><tt> 
+</tt>41<tt> 
+</tt>42<tt> 
+</tt>43<tt> 
+</tt>44<tt> 
+</tt>45<tt> 
+</tt>46<tt> 
+</tt>47<tt> 
+</tt>48<tt> 
+</tt>49<tt> 
+</tt><strong>50</strong><tt> 
+</tt></pre></td> 
+  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }"><tt> 
+</tt><span class="c">/*</span> <span class="c">autcompleter.advancedlocal</span> <span class="c">css</span> <span class="c">*/</span><tt> 
+</tt><span class="cl">.tokenizer</span>{<span class="ke">min-height</span>:<span class="fl">5px</span>;<span class="ke">padding</span>:<span class="fl">0px</span> <span class="fl">0px</span> <span class="fl">3px</span> <span class="fl">3px</span>;<span class="ke">width</span>:<span class="fl">100%</span>;<span class="ke">background</span>:<span class="cr">#fff</span>;<span class="ke">font-size</span>:<span class="fl">11px</span>;}<tt> 
+</tt><span class="cl">.tokenizer_locked</span>{<span class="ke">background</span>:<span class="cr">#f4f4f4</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span>,<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="kw">*</span>{<span class="ke">cursor</span>:<span class="vl">text</span>}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="kw">input</span>{<span class="ke">width</span>:<span class="fl">100%</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tokenizer_input</span>,<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.token</span>{<span class="ke">float</span>:<span class="vl">left</span>;<span class="ke">margin-right</span>:<span class="fl">3px</span>;<span class="ke">margin-top</span>:<span class="fl">3px</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tab_stop</span>,<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tokenizer_stretcher</span>{<span class="ke">display</span>:<span class="vl">block</span>;<span class="ke">float</span>:<span class="vl">left</span>;<span class="ke">overflow</span>:<span class="vl">hidden</span>;<span class="ke">width</span>:<span class="fl">0px</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tab_stop</span>{<span class="ke">height</span>:<span class="fl">0px</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tokenizer_stretcher</span>{<span class="ke">padding-top</span>:<span class="fl">7px</span>;}<tt> 
+</tt><span class="co">#autocomplete_input</span>{<span class="ke">width</span>:<span class="fl">20px</span>;}<tt> 
+</tt><span class="co">#facebook</span> <span class="cl">.tokenizer</span> <span class="cl">.tab_stop</span> <span class="kw">input</span>{<span class="ke">border</span>:<span class="fl">0px</span> <span class="vl">solid</span> <span class="vl">black</span>;<span class="ke">display</span>:<span class="vl">inline</span>;<span class="ke">position</span>:<span class="vl">relative</span>;<span class="ke">left</span>:<span class="fl">-500px</span>;}<tt> 
+</tt><span class="co">#facebook</span> <span class="cl">.tokenizer</span> <span class="cl">.tokenizer_input_borderless</span> {<span class="ke">left</span>:<span class="fl">4px</span>;<span class="ke">margin-left</span>:<span class="fl">-1px</span>;<span class="ke">overflow</span>:<span class="vl">hidden</span>;<span class="ke">position</span>:<span class="vl">relative</span>;}<tt> 
+</tt><span class="co">#facebook</span> <span class="cl">.tokenizer_input_borderless</span>  <span class="co">#autocomplete_input</span>{<span class="ke">border</span>:<span class="fl">3px</span> <span class="vl">solid</span> <span class="vl">white</span><span class="im">!important</span>;<span class="ke">border-left</span>:<span class="vl">none</span>;<span class="ke">display</span>:<span class="vl">block</span>;<span class="ke">margin</span>:<span class="fl">-3px</span> <span class="fl">3px</span> <span class="fl">-4px</span> <span class="fl">-2px</span>;<span class="ke">padding</span>:<span class="fl">0px</span><span class="im">!important</span>;}<tt> 
+</tt><span class="c">/*</span><span class="c">IE6-/Win</span> <span class="c">only</span><span class="c">*/</span><tt> 
+</tt><span class="c">/*</span><span class="c">\</span><span class="c">*/</span> <span class="kw">*</span> <span class="kw">html</span><span class="co">#facebook</span> <span class="cl">.tokenizer_input_borderless</span> <span class="co">#autocomplete_input</span> { <span class="ke">border</span>:<span class="fl">3px</span> <span class="vl">solid</span> <span class="vl">black</span>;<span class="ke">margin</span>: <span class="fl">-3px</span> <span class="fl">3px</span> <span class="fl">-4px</span> <span class="fl">14px</span>:<span class="vl">padding-left</span>:<span class="fl">10px</span>; } <span class="c">/*</span><span class="c">*/</span><tt> 
+</tt><span class="cl">.tokenizer</span> <span class="kw">div</span><span class="ps">:-moz-first-node</span>{<span class="ke">padding-top</span>:<span class="fl">1px</span><span class="im">!important</span>;}<tt> 
+</tt><span class="cl">.tokenizer_input</span>{<span class="ke">max-width</span>:<span class="fl">450px</span>;<span class="ke">overflow</span>:<span class="vl">hidden</span>;<span class="ke">padding</span>:<span class="fl">1px</span> <span class="fl">0px</span>;}<tt> 
+</tt><span class="co">#facebook</span> <span class="cl">.tokenizer_input</span> <span class="kw">input</span>,<tt> 
+</tt><span class="cl">.tokenizer_input_shadow</span>{<span class="ke">border</span>:<span class="fl">0px</span> <span class="vl">solid</span> <span class="vl">black</span>;<span class="ke">outline</span>:<span class="fl">0</span>;<span class="ke">font-family</span>:<span class="s"><span class="dl">'</span><span class="k">lucida grande</span><span class="dl">'</span></span>, <span class="vl">tahoma</span>, <span class="vl">verdana</span>, <span class="vl">arial</span>, <span class="vl">sans-serif</span>;<span class="ke">font-size</span>:<span class="fl">11px</span>;<span class="ke">padding</span>:<span class="fl">0px</span> <span class="fl">5px</span>;<span class="ke">margin</span>:<span class="fl">0</span> <span class="fl">0</span> <span class="fl">-1px</span> <span class="fl">0</span>;<span class="ke">white-space</span>:<span class="vl">pre</span>;}<tt> 
+</tt><span class="cl">.tokenizer_input_shadow</span>{<span class="ke">display</span>:<span class="vl">inline</span>;<span class="ke">left</span>:<span class="fl">-10000px</span>;<span class="ke">position</span>:<span class="vl">absolute</span>;<span class="ke">top</span>:<span class="fl">-10000px</span>;}<tt> 
+</tt><span class="cl">.tokenizer</span> <span class="cl">.tokenizer_input_shadow</span>{<span class="ke">height</span>:<span class="fl">0px</span>;<span class="ke">display</span>:<span class="vl">block</span>;<span class="ke">left</span>:<span class="fl">0px</span>;<span class="ke">overflow</span>:<span class="vl">hidden</span>;<span class="ke">position</span>:<span class="vl">relative</span>;<span class="ke">top</span>:<span class="fl">0px</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token.gif'</span><span class="dl">)</span></span>;<span class="ke">background-repeat</span>:<span class="vl">no-repeat</span>;<span class="ke">color</span>:<span class="vl">black</span>;<span class="ke">white-space</span>:<span class="vl">nowrap</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token.gif'</span><span class="dl">)</span></span>;<span class="ke">background-position</span>:<span class="vl">top</span> <span class="vl">right</span>;<span class="ke">background-repeat</span>:<span class="vl">no-repeat</span>;<span class="ke">display</span>:<span class="vl">block</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span> <span class="kw">span</span>{<span class="ke">background-position</span>:<span class="vl">bottom</span> <span class="vl">right</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span> <span class="kw">span</span> <span class="kw">span</span>{<span class="ke">background-position</span>:<span class="vl">bottom</span> <span class="vl">left</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span> <span class="kw">span</span> <span class="kw">span</span> <span class="kw">span</span>{<span class="ke">background-image</span>:<span class="vl">none</span>;<span class="ke">padding</span>:<span class="fl">2px</span> <span class="fl">3px</span> <span class="fl">2px</span> <span class="fl">5px</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span><span class="cl">.tokenizer_locked</span> <span class="cl">.token</span> <span class="kw">span</span> <span class="kw">span</span> <span class="kw">span</span> <span class="kw">span</span>{<span class="ke">padding-right</span>:<span class="fl">5px</span>;}<tt> 
+</tt><span class="kw">html</span> <span class="kw">div</span><span class="cl">.tokenizer_locked</span> <span class="cl">.token</span><span class="ps">:hover</span>,<tt> 
+</tt><span class="kw">html</span> <span class="kw">div</span><span class="cl">.tokenizer_locked</span> <span class="cl">.token</span><span class="ps">:hover</span> <span class="kw">span</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token.gif'</span><span class="dl">)</span></span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span><span class="ps">:hover</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span><span class="ps">:hover</span> <span class="kw">span</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token_hover.gif'</span><span class="dl">)</span></span>;<span class="ke">text-decoration</span>:<span class="vl">none</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token_selected</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token_selected</span> <span class="kw">span</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token_selected</span><span class="ps">:hover</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token_selected</span><span class="ps">:hover</span> <span class="kw">span</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token_selected.gif'</span><span class="dl">)</span></span>;<span class="ke">color</span>:<span class="vl">white</span>;<span class="ke">text-decoration</span>:<span class="vl">none</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span><span class="cl">.x</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span> <span class="kw">span</span><span class="cl">.x_hover</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span><span class="ps">:hover</span> <span class="kw">span</span><span class="cl">.x</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span> <span class="cl">.token</span><span class="ps">:hover</span> <span class="kw">span</span><span class="cl">.x_hover</span>{<span class="ke">background-image</span>:<span class="s"><span class="dl">url(</span><span class="k">'/inbox/images/token_x.gif'</span><span class="dl">)</span></span>;<span class="ke">background-position</span>:<span class="fl">4px</span> <span class="fl">2px</span>;<span class="ke">cursor</span>:<span class="vl">pointer</span>;<span class="ke">display</span>:<span class="vl">inline</span>;<span class="ke">padding</span>:<span class="fl">0px</span> <span class="fl">6px</span> <span class="fl">0px</span> <span class="fl">5px</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span><span class="cl">.tokenizer_locked</span> <span class="cl">.token</span> <span class="kw">span</span><span class="cl">.x</span>,<tt> 
+</tt><span class="kw">div</span><span class="cl">.tokenizer</span><span class="cl">.tokenizer_locked</span> <span class="cl">.token</span> <span class="kw">span</span><span class="cl">.x_hover</span>{<span class="ke">display</span>:<span class="vl">none</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.autocomplete</span> {  <span class="ke">position</span>:<span class="vl">absolute</span>;  <span class="ke">width</span>:<span class="fl">355px</span>;  <span class="ke">background-color</span>:<span class="vl">white</span>;  <span class="ke">border</span>:<span class="fl">1px</span> <span class="vl">solid</span> <span class="cr">#888</span>;  <span class="ke">margin-top</span>:<span class="fl">-2px</span>;  <span class="ke">padding</span>:<span class="fl">0px</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.autocomplete</span> <span class="kw">ul</span> {  <span class="ke">list-style-type</span>:<span class="vl">none</span>;<span class="ke">margin</span>:<span class="fl">0px</span>; <span class="ke">padding</span>:<span class="fl">0px</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.autocomplete</span> <span class="kw">ul</span> <span class="kw">li</span><span class="cl">.selected</span> { <span class="ke">background-color</span>: <span class="cr">#ffb</span>;}<tt> 
+</tt><span class="kw">div</span><span class="cl">.autocomplete</span> <span class="kw">ul</span> <span class="kw">li</span> {  <span class="ke">list-style-type</span>:<span class="vl">none</span>;  <span class="ke">display</span>:<span class="vl">block</span>;  <span class="ke">margin</span>:<span class="fl">0</span>;  <span class="ke">padding</span>:<span class="fl">2px</span>;  <span class="ke">height</span>:<span class="fl">32px</span>;<span class="ke">cursor</span>:<span class="vl">pointer</span>;}<tt> 
+</tt><span class="c">/*</span> <span class="c">end</span> <span class="c">of</span> <span class="c">autcompleter.advancedlocal</span> <span class="c">css</span> <span class="c">*/</span><tt> 
+</tt></pre></td> 
+</tr></table> 
+</div> 
+
+</body></html>
