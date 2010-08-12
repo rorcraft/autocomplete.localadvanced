@@ -3,4 +3,10 @@ h1. The Facebook autocomplete address to: field.
 We’ve extended the Autocomplete.Local from Scriptaculous to implement the autocomplete to: field mimicing the Facebook’s features. This was a little challenging at the start, but prototype.js and scriptaculous have just made it so much easier.
 
 For more details:
-http://www.rorcraft.com/2008/8/13/the-facebook-autocomplete-address-to-field/
+"http://www.rorcraft.com/2008/8/13/the-facebook-autocomplete-address-to-field/":http://www.rorcraft.com/2008/8/13/the-facebook-autocomplete-address-to-field/
+
+<img src="http://devblog.rorcraft.com/assets/2008/8/13/autocomplete.advancedlocal.jpg" />
+
+h2. Credits
+
+Developed by Rex Chung - "http://www.rorcraft.com":http://rorcraft.com
